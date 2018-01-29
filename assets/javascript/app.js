@@ -3,7 +3,7 @@
 // Step 2: .on("click") buttons trigger the .ajax call to retrieve 10 gifs
 
 $(document).ready(function() {
-    var gifArr = ["Trending", "Oh no", "But why", "Yesss", "Nooo", "Ughh", "LOL", "Huh", "Deal with it", "Hungry"];
+    var gifArr = ["How dare you", "Oh no", "But why", "Yesss", "Nooo", "Ughh", "LOL", "Huh", "Deal with it", "Hungry"];
 
     function displayGifs() {
         var gifSearch = $(this).attr("data-name");
@@ -50,7 +50,7 @@ $(document).ready(function() {
     	for(var i = 0; i < gifArr.length; i++){
     		var buttons = $("<button>");
 
-    		buttons.addClass("gif");
+    		buttons.addClass("gif-button");
     		buttons.attr("data-name", gifArr[i]);
     		buttons.text(gifArr[i]);
 
@@ -70,17 +70,18 @@ $(document).ready(function() {
     displayButtons();
 
     // Makes call to API to display gifs when button is clicked
-    $(document).on("click", ".gif", displayGifs);
+    $(document).on("click", ".gif-button", displayGifs);
 
     // Triggers between still and moving gif when clicked on
-    $(".gif").on("click", function(){
+    $(document).on("click", ".gif", function(){
+        console.log("I'm workng");
     	// debugger;
     	if($(this).attr("data-state") === "still"){
-    		$(".gif").attr("src", "data-moving");
+    		$(".gif").attr("src", $(this).attr("data-moving"));
     		$(".gif").attr("data-state", "moving");
     		console.log("still");
     	}else if($(this).attr("data-state") === "moving"){
-    		$(".gif").attr("src", "data-still");
+    		$(".gif").attr("src", $(this).attr("data-still"));
     		$(".gif").attr("data-state", "still");
     		console.log("moving");
     	}
