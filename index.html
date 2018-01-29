@@ -1,27 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<title>Generate a gif!</title>
-<!-- 	<link rel="stylesheet" type="text/css" href="assets/css/reset.css"> -->
-	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <meta charset="UTF-8">
+    <title>Reaction gifs</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
+
 <body>
-	<h1>Gif Generator</h1>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+        	<div class="row">
+	        	<div class="col-md-6">
+		            <h1 class="display-4"><strong>Reaction gif Generator</strong></h1>
+		            <h5 class="lead">When words aren't enough.</h5>
+	            </div>
+            	<div class="col-md-6">
+            		<iframe src="https://giphy.com/embed/wn8rVP7qC8TNC" width="138" height="100" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+        		</div>
+    		</div>
+        </div>
+    </div>
+    <!-- Form to generate new gif buttons -->
+    <div id="content">
+	    <form>
+	        <label for="gif-input">Gif Search: </label>
+	        <input type="text" id="gif-input" placeholder="Generate Your Own">
+	        <input type="submit" id="add-gif" value="Submit">
+	    </form>
+	    <br>
+	    <div id="gif-buttons"></div>
+	    <div id="gif-display"></div>
+	</div>
 
-	<!-- Form to generate new gif buttons -->
-	<form>
-		<label for="gif-input">Gif Search: </label>
-		<input type="text" id="gif-input">
-
-		<input type="submit" id="add-gif" value="Generate gifs">
-	</form>
-	<br>
-	<div id="gif-buttons"></div>
-
-	<div id="gif-display"></div>
-
-	<script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-	<script type="text/javascript" src="assets/javascript/app.js"></script>
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="assets/javascript/app.js"></script>
 </body>
+
 </html>
