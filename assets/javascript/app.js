@@ -3,7 +3,7 @@
 // Step 2: .on("click") buttons trigger the .ajax call to retrieve 10 gifs
 
 $(document).ready(function() {
-    var gifArr = ["Trending", "Oh no", "But why", "Yesss", "Nooo", "Hangry"];
+    var gifArr = ["Trending", "Oh no", "But why", "Yesss", "Nooo", "Ughh", "LOL", "Huh", "Deal with it", "Hungry"];
 
 
     function displayGifs() {
@@ -16,25 +16,26 @@ $(document).ready(function() {
             method: "GET"
         }).done(function(response) {
 
-        	// Include code to retrieve gifs and their ratings (rating) when button is clicked
-        	console.log(response.data[0].images.fixed_height.url);
-
         	var gifDiv = $("<div class='gif'>");
 
-        	var gifRating = response.rating;
-			var p = $("<p>").text("Rated:" + gifRating);
-        	gifDiv.append(p);
+        	for(var i = 0; i < 10; i++){
+	        	var gifRating = response.data[i].rating;
+				var p = $("<p>").text("Rated:" + gifRating);
+	        	gifDiv.append(p);
 
-        	var actualGif = response.data.images.fixed_height;
-        	var iFrame = $("<iframe>").text(actualGif);
-        	gifDiv.append(iFrame);
+	        	var actualGif = response.data[i].images.fixed_height.url;
+	        	console.log(actualGif);
 
-        	$("#gif-display").prepend(gifDv);
+	        	var newGif = $("<img>").attr("src", actualGif);
+	        	gifDiv.append(newGif);
+        	}
+
+        	$("#gif-display").html(gifDiv);
 
         })
     }
 
-    // Goes through gifArr to create buttons dynamically
+    //Goes through gifArr to create buttons dynamically
     function displayButtons(){
     	$("#gif-buttons").empty();
 
@@ -48,6 +49,18 @@ $(document).ready(function() {
     		$("#gif-buttons").append(buttons);
     	}
     }
+
+    $("#add-gif").on("click", function(event){
+    	event.preventDefault();
+
+    	var gifInput = $("#gif-input").val().trim();
+
+    	gifArr.push(gifInput);
+
+    	console.log(gifArr);
+
+    	displayButtons();
+    })
 
     displayButtons();
     $(document).on("click", ".gif", displayGifs);
