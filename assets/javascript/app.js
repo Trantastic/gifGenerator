@@ -14,27 +14,31 @@ $(document).ready(function() {
             url: queryURL,
             method: "GET"
         }).done(function(response) {
-
-        	var gifDiv = $("<div>");
+            var gifDiv = $("<div>");
 
         	for(var i = 0; i < response.data.length; i++){
+                //Creates a new div for each img to append to
+                var newDiv = $("<div class='align'>");
+
 	        	var gifRating = response.data[i].rating;
 				var p = $("<p>").text("Rated: " + gifRating);
-	        	gifDiv.append(p);
+	        	newDiv.append(p);
+
+                var movingGif = response.data[i].images.fixed_height.url;
+                var stillGif = response.data[i].images.fixed_height_still.url;
 
 	        	var newGif = $("<img>").attr("src", stillGif);
 	        	newGif.attr("class", "gif");
 
-				var movingGif = response.data[i].images.fixed_height.url;
-	        	newGif.attr("data-moving", movingGif);
-	        	newGif.attr("data-state", "moving");
+				newGif.attr("data-moving", movingGif);
+                newGif.attr("data-state", "moving");
 	        	
-
-	        	var stillGif = response.data[i].images.fixed_height_still.url;
 	        	newGif.attr("data-still", stillGif);
 	        	newGif.attr("data-state", "still");
 
-	        	gifDiv.append(newGif);
+                newDiv.append(newGif);
+
+	        	gifDiv.append(newDiv);
         	}
 
         	$("#gif-display").html(gifDiv);
@@ -50,21 +54,28 @@ $(document).ready(function() {
     	for(var i = 0; i < gifArr.length; i++){
     		var buttons = $("<button>");
 
-    		buttons.addClass("gif-button");
+    		buttons.addClass("gif-button text-white bg-primary");
     		buttons.attr("data-name", gifArr[i]);
     		buttons.text(gifArr[i]);
 
     		$("#gif-buttons").append(buttons);
     	}
     }
+
     // Pushes new gifs into the gifArr from the submission box
     $("#add-gif").on("click", function(event){
     	event.preventDefault();
 
     	var gifInput = $("#gif-input").val().trim();
-		gifArr.push(gifInput);
+
+        // Prevents user from creating a blank button
+        if(gifInput.length !== 0){
+            gifArr.push(gifInput);
+        }
 
     	displayButtons();
+        // Prevents duplicates and empties input box after submit is clicked
+        $("#gif-input").val("");
     });
 
     displayButtons();
@@ -74,15 +85,16 @@ $(document).ready(function() {
 
     // Triggers between still and moving gif when clicked on
     $(document).on("click", ".gif", function(){
-        console.log("I'm workng");
+        console.log("I'm working", $(this));
+
     	// debugger;
     	if($(this).attr("data-state") === "still"){
-    		$(".gif").attr("src", $(this).attr("data-moving"));
-    		$(".gif").attr("data-state", "moving");
+    		$(this).attr("src", $(this).attr("data-moving"));
+    		$(this).attr("data-state", "moving");
     		console.log("still");
     	}else if($(this).attr("data-state") === "moving"){
-    		$(".gif").attr("src", $(this).attr("data-still"));
-    		$(".gif").attr("data-state", "still");
+    		$(this).attr("src", $(this).attr("data-still"));
+    		$(this).attr("data-state", "still");
     		console.log("moving");
     	}
     });
